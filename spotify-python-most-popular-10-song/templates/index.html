@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Top 10 Tracks</title>
+    <style>
+        body {
+            background-color: #1A1A1A;
+            color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 80vh;
+        }
+
+        h1, h2 {
+            color: #8E44AD;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 200px;
+            background-color: #2C3E50;
+            color: #FFFFFF;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #8E44AD;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #2C3E50;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        li:hover {
+            background-color: #34495E;
+        }
+
+        li span {
+            flex-grow: 1;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Spotify Top 10 Tracks For Spesific Artist</h1>
+    <form method="post" action="/">
+        <label for="artist_name" style="display: none;">Enter Artist Name:</label>
+        <input type="text" id="artist_name" name="artist_name" required placeholder="Enter Artist Name">
+        <button type="submit">Search</button>
+    </form>
+    {% if artist_name and songs %}
+        <h2>Top tracks for {{ artist_name }}</h2>
+        <ul>
+            {% for song in songs %}
+                <li>
+                    <span>{{ loop.index }}. {{ song['name'] }}</span>
+                    <span>{{ song['artists'][0]['name'] }}</span>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif artist_name %}
+        <p>No top tracks found for {{ artist_name }}</p>
+    {% endif %}
+</body>
+</html>
